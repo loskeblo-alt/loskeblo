@@ -1,0 +1,117 @@
+/* Configuración Base */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000; /* Fondo negro absoluto */
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor con perspectiva para el efecto 3D */
+.contenedor-3d {
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+/* Estructura del Texto en Órbita */
+.texto-3d {
+    position: relative;
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: #ffffff;
+    transform-style: preserve-3d;
+    /* Animación de rotación como la Tierra */
+    animation: rotarOrbita 8s linear infinite; 
+}
+
+/* Capas para dar volumen 3D y efecto píxel/glitch */
+.capa {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Separación de capas en el eje Z para crear la profundidad */
+.capa:nth-child(1) { transform: translateZ(0px); text-shadow: 2px 2px #ff0055; }
+.capa:nth-child(2) { transform: translateZ(-2px); color: #e5e5e5; }
+.capa:nth-child(3) { transform: translateZ(-4px); color: #cccccc; text-shadow: -2px -2px #00ffff; }
+.capa:nth-child(4) { transform: translateZ(-6px); color: #b3b3b3; }
+.capa:nth-child(5) { transform: translateZ(-8px); color: #999999; }
+
+/* Animación de Rotación de la Órbita */
+@keyframes rotarOrbita {
+    0% {
+        transform: rotateY(0deg) rotateX(10deg);
+    }
+    100% {
+        transform: rotateY(360deg) rotateX(10deg);
+    }
+}
+
+/* Sección de Carga Inferior */
+.contenedor-carga {
+    width: 280px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.status {
+    color: #555;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    animation: parpadeo 1s steps(2, start) infinite;
+}
+
+.barra-progreso {
+    width: 100%;
+    height: 4px;
+    background-color: #111;
+    border: 1px solid #222;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progreso {
+    height: 100%;
+    width: 0;
+    background-color: #ffffff;
+    /* Animación que simula carga constante */
+    animation: cargarBarra 4s ease-in-out infinite; 
+}
+
+/* Animaciones Secundarias (Glitch de carga y parpadeo) */
+@keyframes cargarBarra {
+    0% { width: 0%; }
+    50% { width: 70%; }
+    80% { width: 90%; }
+    100% { width: 100%; }
+}
+
+@keyframes parpadeo {
+    to { visibility: hidden; }
+}
+
+/* Ajuste para pantallas de teléfonos */
+@media (max-width: 768px) {
+    .texto-3d {
+        font-size: 2.8rem;
+        letter-spacing: 4px;
+    }
+}
